@@ -1,0 +1,4 @@
+build/
+*.ll
+*.dot
+*.so
