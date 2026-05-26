@@ -1,0 +1,10 @@
+
+=== Processing Function: test1 ===
+
+BasicBlock: (unnamed_0x5d21ce40c8d0)
+  Frequency: 18014398509481984
+
+=== Summary ===
+Total branches analyzed: 1
+Reordered for fall-through: 0
+Estimated taken branch reduction: 0

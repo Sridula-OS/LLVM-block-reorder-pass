@@ -7,6 +7,9 @@ cmake ..
 make
 cd ..
 
+# Create results directory if not exists
+mkdir -p results
+
 echo ""
 echo "===== Running All Test Cases ====="
 
@@ -17,51 +20,57 @@ do
     echo "Processing $file"
     echo "==============================="
 
+    # -----------------------------------
     # Compile C -> LLVM IR
-    clang -O1 -S -emit-llvm $file.c -o $file.ll
+    # -----------------------------------
+    clang -O1 -S -emit-llvm $file.c -o results/$file.ll
 
-    echo "Generated $file.ll"
+    echo "Generated results/$file.ll"
 
-    # -----------------------------
+    # -----------------------------------
     # BEFORE CFG
-    # -----------------------------
+    # -----------------------------------
     rm -f .*.dot
 
-    opt -passes=dot-cfg $file.ll -disable-output
+    opt -passes=dot-cfg results/$file.ll -disable-output
 
     for dotfile in .*.dot
     do
-        dot -Tpng "$dotfile" -o "${file}_before.png"
+        dot -Tpng "$dotfile" -o "results/${file}_before.png"
+        rm "$dotfile"
         break
     done
 
-    echo "Generated ${file}_before.png"
+    echo "Generated results/${file}_before.png"
 
-    # -----------------------------
+    # -----------------------------------
     # Run LLVM Pass
-    # -----------------------------
+    # -----------------------------------
     opt -load-pass-plugin ./build/libBlockReorderPass.so \
         -passes="block-reorder" \
-        $file.ll -o ${file}_out.ll
+        results/$file.ll -o results/${file}_out.ll \
+        2> results/${file}_log.txt
 
-    echo "Generated ${file}_out.ll"
+    echo "Generated results/${file}_out.ll"
 
-    # -----------------------------
+    # -----------------------------------
     # AFTER CFG
-    # -----------------------------
+    # -----------------------------------
     rm -f .*.dot
 
-    opt -passes=dot-cfg ${file}_out.ll -disable-output
+    opt -passes=dot-cfg results/${file}_out.ll -disable-output
 
     for dotfile in .*.dot
     do
-        dot -Tpng "$dotfile" -o "${file}_after.png"
+        dot -Tpng "$dotfile" -o "results/${file}_after.png"
+        rm "$dotfile"
         break
     done
 
-    echo "Generated ${file}_after.png"
+    echo "Generated results/${file}_after.png"
 
 done
 
 echo ""
 echo "===== ALL TESTS COMPLETED ====="
+echo "Results stored inside results/"

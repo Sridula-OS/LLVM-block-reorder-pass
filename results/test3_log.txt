@@ -1,0 +1,41 @@
+
+=== Processing Function: test3 ===
+
+BasicBlock: (unnamed_0x5f6b71bacbe0)
+  Frequency: 562949953421312
+  Successor: (unnamed_0x5f6b71bacd20) | Probability: 0x40000000 / 0x80000000 = 50.00% | Frequency: 281474976710656
+  Successor: (unnamed_0x5f6b71baed30) | Probability: 0x40000000 / 0x80000000 = 50.00% | Frequency: 281474976710656
+
+BasicBlock: (unnamed_0x5f6b71bacd20)
+  Frequency: 281474976710656
+  Successor: (unnamed_0x5f6b71baf2f0) | Probability: 0x40000000 / 0x80000000 = 50.00% | Frequency: 140737488355328
+  Successor: (unnamed_0x5f6b71baf350) | Probability: 0x40000000 / 0x80000000 = 50.00% | Frequency: 140737488355328
+
+BasicBlock: (unnamed_0x5f6b71baf2f0)
+  Frequency: 140737488355328
+  Successor: (unnamed_0x5f6b71baf4d0) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 562949953421312
+
+BasicBlock: (unnamed_0x5f6b71baf350)
+  Frequency: 140737488355328
+  Successor: (unnamed_0x5f6b71baf4d0) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 562949953421312
+
+BasicBlock: (unnamed_0x5f6b71baed30)
+  Frequency: 281474976710656
+  Successor: (unnamed_0x5f6b71baf4d0) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 562949953421312
+
+BasicBlock: (unnamed_0x5f6b71baf4d0)
+  Frequency: 562949953421312
+  Successor: (unnamed_0x5f6b71baf7c0) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 18014398509481984
+
+BasicBlock: (unnamed_0x5f6b71baf890)
+  Frequency: 562949953421312
+
+BasicBlock: (unnamed_0x5f6b71baf7c0)
+  Frequency: 18014398509481984
+  Successor: (unnamed_0x5f6b71baf890) | Probability: 0x04000000 / 0x80000000 = 3.12% | Frequency: 562949953421312
+  Successor: (unnamed_0x5f6b71baf7c0) | Probability: 0x7c000000 / 0x80000000 = 96.88% | Frequency: 18014398509481984
+
+=== Summary ===
+Total branches analyzed: 8
+Reordered for fall-through: 0
+Estimated taken branch reduction: 0
