@@ -17,127 +17,195 @@ namespace {
 
 struct BlockReorderPass : public PassInfoMixin<BlockReorderPass> {
 
+    // ------------------------------------------
     // Print block name safely
+    // ------------------------------------------
     void printBlockName(BasicBlock *BB) {
+
         if (BB->hasName())
             errs() << BB->getName();
         else
             errs() << "(unnamed_" << BB << ")";
     }
 
-    // Fix PHI nodes safely after reordering
+    // ------------------------------------------
+    // Reconstruct PHI node mappings safely
+    // ------------------------------------------
     void fixPHINodes(Function &F) {
+
         for (auto &BB : F) {
+
             for (auto &I : BB) {
 
-                if (auto *PN = dyn_cast<PHINode>(&I)) {
+                auto *PN = dyn_cast<PHINode>(&I);
 
-                    SmallVector<std::pair<Value*, BasicBlock*>, 8> incoming;
+                if (!PN)
+                    continue;
 
-                    // Store existing mappings
-                    for (unsigned i = 0; i < PN->getNumIncomingValues(); i++) {
-                        incoming.push_back({
-                            PN->getIncomingValue(i),
-                            PN->getIncomingBlock(i)
-                        });
-                    }
+                SmallVector<std::pair<Value*, BasicBlock*>, 8> Incoming;
 
-                    // Remove all entries safely (fix ambiguity)
-                    while (PN->getNumIncomingValues() > 0) {
-                        PN->removeIncomingValue((unsigned)0, false);
-                    }
+                // Save incoming mappings
+                for (unsigned i = 0; i < PN->getNumIncomingValues(); i++) {
 
-                    // Reinsert mappings
-                    for (auto &pair : incoming) {
-                        PN->addIncoming(pair.first, pair.second);
-                    }
+                    Incoming.push_back({
+                        PN->getIncomingValue(i),
+                        PN->getIncomingBlock(i)
+                    });
+                }
+
+                // Remove safely
+                while (PN->getNumIncomingValues() > 0) {
+                    PN->removeIncomingValue((unsigned)0, false);
+                }
+
+                // Reinsert
+                for (auto &Entry : Incoming) {
+                    PN->addIncoming(Entry.first, Entry.second);
                 }
             }
         }
     }
 
-    PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM) {
+    // ------------------------------------------
+    // Main pass
+    // ------------------------------------------
+    PreservedAnalyses run(Function &F,
+                          FunctionAnalysisManager &AM) {
 
         auto &BPI = AM.getResult<BranchProbabilityAnalysis>(F);
         auto &BFI = AM.getResult<BlockFrequencyAnalysis>(F);
 
-        errs() << "\n=== Processing Function: " << F.getName() << " ===\n";
+        errs() << "\n=====================================\n";
+        errs() << "Processing Function: " << F.getName() << "\n";
+        errs() << "=====================================\n";
 
-        int totalBranches = 0;
-        int reordered = 0;
+        int TotalBranches = 0;
+        int ReorderedBranches = 0;
 
         for (auto &BB : F) {
 
             auto *Term = BB.getTerminator();
-            if (!Term) continue;
+
+            if (!Term)
+                continue;
 
             errs() << "\nBasicBlock: ";
             printBlockName(&BB);
             errs() << "\n";
 
             // Print block frequency
-            errs() << "  Frequency: "
-                   << BFI.getBlockFreq(&BB).getFrequency() << "\n";
+            uint64_t BlockFreq =
+                BFI.getBlockFreq(&BB).getFrequency();
+
+            errs() << "  Block Frequency: "
+                   << BlockFreq << "\n";
 
             BasicBlock *BestSucc = nullptr;
-            BranchProbability BestProb = BranchProbability::getZero();
 
-            for (unsigned i = 0; i < Term->getNumSuccessors(); i++) {
+            uint64_t BestScore = 0;
 
-                BasicBlock *Succ = Term->getSuccessor(i);
-                auto Prob = BPI.getEdgeProbability(&BB, Succ);
+            // --------------------------------------
+            // Analyze successors
+            // --------------------------------------
+            for (unsigned i = 0;
+                 i < Term->getNumSuccessors();
+                 i++) {
 
-                uint64_t currFreq = BFI.getBlockFreq(Succ).getFrequency();
-                uint64_t bestFreq = BestSucc ? BFI.getBlockFreq(BestSucc).getFrequency() : 0;
+                BasicBlock *Succ =
+                    Term->getSuccessor(i);
 
-                // Combined score: probability × frequency
-                uint64_t currScore = Prob.getNumerator() * currFreq;
-                uint64_t bestScore = BestProb.getNumerator() * bestFreq;
+                auto Prob =
+                    BPI.getEdgeProbability(&BB, Succ);
+
+                uint64_t SuccFreq =
+                    BFI.getBlockFreq(Succ).getFrequency();
+
+                // Combined heuristic:
+                // branch probability × execution frequency
+                uint64_t Score =
+                    Prob.getNumerator() * SuccFreq;
 
                 errs() << "  Successor: ";
                 printBlockName(Succ);
-                errs() << " | Probability: " << Prob;
-                errs() << " | Frequency: " << currFreq << "\n";
 
-                if (currScore > bestScore) {
-                    BestProb = Prob;
+                errs() << " | Probability: "
+                       << Prob;
+
+                errs() << " | Frequency: "
+                       << SuccFreq;
+
+                errs() << " | Score: "
+                       << Score << "\n";
+
+                // Select hottest successor
+                if (Score > BestScore) {
+
+                    BestScore = Score;
                     BestSucc = Succ;
                 }
             }
 
             if (BestSucc) {
-                errs() << "  --> Best successor: ";
+
+                errs() << "  --> Hot Successor: ";
                 printBlockName(BestSucc);
                 errs() << "\n";
             }
 
-            totalBranches++;
+            TotalBranches++;
 
-            // Reorder blocks for fall-through
-            if (BestSucc && BestSucc != BB.getNextNode()) {
+            // --------------------------------------
+            // Reorder for fall-through optimization
+            // --------------------------------------
+            if (BestSucc &&
+                BestSucc != BB.getNextNode()) {
 
                 errs() << "  *** Reordering: ";
+
                 printBlockName(&BB);
+
                 errs() << " -> ";
+
                 printBlockName(BestSucc);
+
                 errs() << "\n";
 
-                // Annotation (assignment requirement)
                 errs() << "  ;; Reordered edge reduces taken branch\n";
 
-                BestSucc->moveAfter(&BB);
-                reordered++;
+                // LLVM 21-compatible splice()
+                auto InsertPt =
+                    std::next(BB.getIterator());
+
+                F.splice(
+                    InsertPt,
+                    F,
+                    BestSucc->getIterator()
+                );
+
+                ReorderedBranches++;
             }
         }
 
-        // Fix PHI nodes after reordering
+        // ------------------------------------------
+        // PHI reconstruction
+        // ------------------------------------------
         fixPHINodes(F);
 
-        // Summary
-        errs() << "\n=== Summary ===\n";
-        errs() << "Total branches analyzed: " << totalBranches << "\n";
-        errs() << "Reordered for fall-through: " << reordered << "\n";
-        errs() << "Estimated taken branch reduction: " << reordered << "\n";
+        // ------------------------------------------
+        // Final summary
+        // ------------------------------------------
+        errs() << "\n=====================================\n";
+        errs() << "Optimization Summary\n";
+        errs() << "=====================================\n";
+
+        errs() << "Total branches analyzed: "
+               << TotalBranches << "\n";
+
+        errs() << "Blocks reordered: "
+               << ReorderedBranches << "\n";
+
+        errs() << "Estimated taken branch reduction: "
+               << ReorderedBranches << "\n";
 
         return PreservedAnalyses::none();
     }
@@ -145,26 +213,39 @@ struct BlockReorderPass : public PassInfoMixin<BlockReorderPass> {
 
 } // namespace
 
-
+// =====================================================
 // Pass Registration
-extern "C" LLVM_ATTRIBUTE_WEAK llvm::PassPluginLibraryInfo llvmGetPassPluginInfo() {
+// =====================================================
+
+extern "C"
+LLVM_ATTRIBUTE_WEAK
+llvm::PassPluginLibraryInfo
+llvmGetPassPluginInfo() {
+
     return {
-        LLVM_PLUGIN_API_VERSION, "block-reorder-pass", "v0.1",
+        LLVM_PLUGIN_API_VERSION,
+        "block-reorder-pass",
+        "v0.1",
+
         [](llvm::PassBuilder &PB) {
 
             PB.registerPipelineParsingCallback(
+
                 [](llvm::StringRef Name,
                    llvm::FunctionPassManager &FPM,
-                   llvm::ArrayRef<llvm::PassBuilder::PipelineElement>) {
+                   llvm::ArrayRef<
+                       llvm::PassBuilder::PipelineElement>) {
 
                     if (Name == "block-reorder") {
+
                         FPM.addPass(BlockReorderPass());
+
                         return true;
                     }
+
                     return false;
                 }
             );
-
         }
     };
 }

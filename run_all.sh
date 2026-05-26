@@ -13,7 +13,7 @@ mkdir -p results
 echo ""
 echo "===== Running All Test Cases ====="
 
-for file in test test1 test2 test3
+for file in test test1 test2 test3 test4
 do
     echo ""
     echo "==============================="

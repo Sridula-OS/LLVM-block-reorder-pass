@@ -1,17 +1,17 @@
 
 === Processing Function: foo ===
 
-BasicBlock: (unnamed_0x57170d47ed80)
+BasicBlock: (unnamed_0x640185a69d80)
   Frequency: 562949953421312
-  Successor: (unnamed_0x57170d47eec0) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 18014398509481984
+  Successor: (unnamed_0x640185a69ec0) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 18014398509481984
 
-BasicBlock: (unnamed_0x57170d4aab20)
+BasicBlock: (unnamed_0x640185a95b20)
   Frequency: 562949953421312
 
-BasicBlock: (unnamed_0x57170d47eec0)
+BasicBlock: (unnamed_0x640185a69ec0)
   Frequency: 18014398509481984
-  Successor: (unnamed_0x57170d4aab20) | Probability: 0x04000000 / 0x80000000 = 3.12% | Frequency: 562949953421312
-  Successor: (unnamed_0x57170d47eec0) | Probability: 0x7c000000 / 0x80000000 = 96.88% | Frequency: 18014398509481984
+  Successor: (unnamed_0x640185a95b20) | Probability: 0x04000000 / 0x80000000 = 3.12% | Frequency: 562949953421312
+  Successor: (unnamed_0x640185a69ec0) | Probability: 0x7c000000 / 0x80000000 = 96.88% | Frequency: 18014398509481984
 
 === Summary ===
 Total branches analyzed: 3
@@ -20,7 +20,7 @@ Estimated taken branch reduction: 0
 
 === Processing Function: main ===
 
-BasicBlock: (unnamed_0x57170d4ac070)
+BasicBlock: (unnamed_0x640185a97070)
   Frequency: 18014398509481984
 
 === Summary ===

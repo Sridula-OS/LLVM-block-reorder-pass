@@ -60,7 +60,7 @@ to estimate how frequently each basic block executes.
 Hot successor blocks are moved immediately after the current block using:
 
 ```cpp
-moveAfter()
+Function::splice()
 ```
 
 This improves fall-through execution and reduces taken branches.
@@ -95,6 +95,7 @@ llvm-pass/
 ├── test1.c
 ├── test2.c
 ├── test3.c
+├── test4.c
 │
 ├── results/
 │   ├── CFG images
