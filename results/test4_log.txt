@@ -1,19 +1,28 @@
 
-=== Processing Function: unpredictable ===
+=====================================
+Processing Function: unpredictable
+=====================================
 
-BasicBlock: (unnamed_0x5ecd6813cae0)
-  Frequency: 562949953421312
-  Successor: (unnamed_0x5ecd6813e490) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 18014398509481984
+BasicBlock: (unnamed_0x1ea9d00)
+  Block Frequency: 8
+  Successor: (unnamed_0x1ea9dc0) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 255 | Score: 547608330240
+  --> Hot Successor: (unnamed_0x1ea9dc0)
+  *** Reordering: (unnamed_0x1ea9d00) -> (unnamed_0x1ea9dc0)
+  ;; Reordered edge reduces taken branch
 
-BasicBlock: (unnamed_0x5ecd6813e560)
-  Frequency: 562949953421312
+BasicBlock: (unnamed_0x1ea9dc0)
+  Block Frequency: 255
+  Successor: (unnamed_0x1ea9e80) | Probability: 0x04000000 / 0x80000000 = 3.12% | Frequency: 8 | Score: 536870912
+  Successor: (unnamed_0x1ea9dc0) | Probability: 0x7c000000 / 0x80000000 = 96.88% | Frequency: 255 | Score: 530495569920
+  --> Hot Successor: (unnamed_0x1ea9dc0)
 
-BasicBlock: (unnamed_0x5ecd6813e490)
-  Frequency: 18014398509481984
-  Successor: (unnamed_0x5ecd6813e560) | Probability: 0x04000000 / 0x80000000 = 3.12% | Frequency: 562949953421312
-  Successor: (unnamed_0x5ecd6813e490) | Probability: 0x7c000000 / 0x80000000 = 96.88% | Frequency: 18014398509481984
+BasicBlock: (unnamed_0x1ea9e80)
+  Block Frequency: 8
+  No successor edges to analyze
 
-=== Summary ===
-Total branches analyzed: 3
-Reordered for fall-through: 0
-Estimated taken branch reduction: 0
+=====================================
+Optimization Summary
+=====================================
+Total branches analyzed: 2
+Blocks reordered: 1
+Estimated taken branch reduction: 1

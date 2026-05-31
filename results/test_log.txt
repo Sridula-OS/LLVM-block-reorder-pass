@@ -1,29 +1,43 @@
 
-=== Processing Function: foo ===
+=====================================
+Processing Function: foo
+=====================================
 
-BasicBlock: (unnamed_0x640185a69d80)
-  Frequency: 562949953421312
-  Successor: (unnamed_0x640185a69ec0) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 18014398509481984
+BasicBlock: (unnamed_0x1edf8a0)
+  Block Frequency: 8
+  Successor: (unnamed_0x1ee0000) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 255 | Score: 547608330240
+  --> Hot Successor: (unnamed_0x1ee0000)
+  *** Reordering: (unnamed_0x1edf8a0) -> (unnamed_0x1ee0000)
+  ;; Reordered edge reduces taken branch
 
-BasicBlock: (unnamed_0x640185a95b20)
-  Frequency: 562949953421312
+BasicBlock: (unnamed_0x1ee0000)
+  Block Frequency: 255
+  Successor: (unnamed_0x1ee0280) | Probability: 0x04000000 / 0x80000000 = 3.12% | Frequency: 8 | Score: 536870912
+  Successor: (unnamed_0x1ee0000) | Probability: 0x7c000000 / 0x80000000 = 96.88% | Frequency: 255 | Score: 530495569920
+  --> Hot Successor: (unnamed_0x1ee0000)
 
-BasicBlock: (unnamed_0x640185a69ec0)
-  Frequency: 18014398509481984
-  Successor: (unnamed_0x640185a95b20) | Probability: 0x04000000 / 0x80000000 = 3.12% | Frequency: 562949953421312
-  Successor: (unnamed_0x640185a69ec0) | Probability: 0x7c000000 / 0x80000000 = 96.88% | Frequency: 18014398509481984
+BasicBlock: (unnamed_0x1ee0280)
+  Block Frequency: 8
+  No successor edges to analyze
 
-=== Summary ===
-Total branches analyzed: 3
-Reordered for fall-through: 0
-Estimated taken branch reduction: 0
+=====================================
+Optimization Summary
+=====================================
+Total branches analyzed: 2
+Blocks reordered: 1
+Estimated taken branch reduction: 1
 
-=== Processing Function: main ===
+=====================================
+Processing Function: main
+=====================================
 
-BasicBlock: (unnamed_0x640185a97070)
-  Frequency: 18014398509481984
+BasicBlock: (unnamed_0x1ee1750)
+  Block Frequency: 8
+  No successor edges to analyze
 
-=== Summary ===
-Total branches analyzed: 1
-Reordered for fall-through: 0
+=====================================
+Optimization Summary
+=====================================
+Total branches analyzed: 0
+Blocks reordered: 0
 Estimated taken branch reduction: 0

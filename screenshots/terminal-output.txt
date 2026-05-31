@@ -1,0 +1,47 @@
+===== Building LLVM Pass =====
+
+===== Running All Test Cases =====
+
+===============================
+Processing test
+===============================
+Generated results/test.ll
+Generated results/test_before.png
+Generated results/test_out.ll
+Generated results/test_after.png
+
+===============================
+Processing test1
+===============================
+Generated results/test1.ll
+Generated results/test1_before.png
+Generated results/test1_out.ll
+Generated results/test1_after.png
+
+===============================
+Processing test2
+===============================
+Generated results/test2.ll
+Generated results/test2_before.png
+Generated results/test2_out.ll
+Generated results/test2_after.png
+
+===============================
+Processing test3
+===============================
+Generated results/test3.ll
+Generated results/test3_before.png
+Generated results/test3_out.ll
+Generated results/test3_after.png
+
+===============================
+Processing test4
+===============================
+Generated results/test4.ll
+Generated results/test4_before.png
+Generated results/test4_out.ll
+Generated results/test4_after.png
+
+===== ALL TESTS COMPLETED =====
+Results stored inside results/
+Submission screenshots stored inside screenshots/

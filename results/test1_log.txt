@@ -1,10 +1,39 @@
 
-=== Processing Function: test1 ===
+=====================================
+Processing Function: test1
+=====================================
 
-BasicBlock: (unnamed_0x5b0220d848d0)
-  Frequency: 18014398509481984
+BasicBlock: (unnamed_0x1f1ecd0)
+  Block Frequency: 16
+  Successor: (unnamed_0x1f1f430) | Probability: 0x40000000 / 0x80000000 = 50.00% | Frequency: 8 | Score: 8589934592
+  Successor: (unnamed_0x1f1f790) | Probability: 0x40000000 / 0x80000000 = 50.00% | Frequency: 8 | Score: 8589934592
+  --> Hot Successor: (unnamed_0x1f1f430)
 
-=== Summary ===
-Total branches analyzed: 1
-Reordered for fall-through: 0
-Estimated taken branch reduction: 0
+BasicBlock: (unnamed_0x1f1f430)
+  Block Frequency: 8
+  Successor: (unnamed_0x1f1f990) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 16 | Score: 34359738368
+  --> Hot Successor: (unnamed_0x1f1f990)
+  *** Reordering: (unnamed_0x1f1f430) -> (unnamed_0x1f1f990)
+  ;; Reordered edge reduces taken branch
+
+BasicBlock: (unnamed_0x1f1f990)
+  Block Frequency: 16
+  No successor edges to analyze
+
+BasicBlock: (unnamed_0x1f1f790)
+  Block Frequency: 8
+  Successor: (unnamed_0x1f1f990) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 16 | Score: 34359738368
+  --> Hot Successor: (unnamed_0x1f1f990)
+  *** Reordering: (unnamed_0x1f1f790) -> (unnamed_0x1f1f990)
+  ;; Reordered edge reduces taken branch
+
+BasicBlock: (unnamed_0x1f1f990)
+  Block Frequency: 16
+  No successor edges to analyze
+
+=====================================
+Optimization Summary
+=====================================
+Total branches analyzed: 3
+Blocks reordered: 2
+Estimated taken branch reduction: 2

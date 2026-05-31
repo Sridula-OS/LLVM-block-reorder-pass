@@ -3,6 +3,9 @@ project(BlockReorderPass)
 
 find_package(LLVM REQUIRED CONFIG)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 include_directories(${LLVM_INCLUDE_DIRS})
 add_definitions(${LLVM_DEFINITIONS})
 
