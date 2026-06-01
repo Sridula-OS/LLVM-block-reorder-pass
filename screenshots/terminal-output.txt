@@ -7,6 +7,51 @@ Processing test
 ===============================
 Generated results/test.ll
 Generated results/test_before.png
+
+----- Detailed block reorder output for test -----
+
+=====================================
+Processing Function: foo
+=====================================
+
+BasicBlock: (unnamed_0x24818a0)
+  Block Frequency: 8
+  Successor: (unnamed_0x2482000) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 255 | Score: 547608330240
+  --> Hot Successor: (unnamed_0x2482000)
+  *** Reordering: (unnamed_0x24818a0) -> (unnamed_0x2482000)
+  ;; Reordered edge reduces taken branch
+
+BasicBlock: (unnamed_0x2482000)
+  Block Frequency: 255
+  Successor: (unnamed_0x2482280) | Probability: 0x04000000 / 0x80000000 = 3.12% | Frequency: 8 | Score: 536870912
+  Successor: (unnamed_0x2482000) | Probability: 0x7c000000 / 0x80000000 = 96.88% | Frequency: 255 | Score: 530495569920
+  --> Hot Successor: (unnamed_0x2482000)
+
+BasicBlock: (unnamed_0x2482280)
+  Block Frequency: 8
+  No successor edges to analyze
+
+=====================================
+Optimization Summary
+=====================================
+Total branches analyzed: 2
+Blocks reordered: 1
+Estimated taken branch reduction: 1
+
+=====================================
+Processing Function: main
+=====================================
+
+BasicBlock: (unnamed_0x2483750)
+  Block Frequency: 8
+  No successor edges to analyze
+
+=====================================
+Optimization Summary
+=====================================
+Total branches analyzed: 0
+Blocks reordered: 0
+Estimated taken branch reduction: 0
 Generated results/test_out.ll
 Generated results/test_after.png
 
@@ -15,6 +60,47 @@ Processing test1
 ===============================
 Generated results/test1.ll
 Generated results/test1_before.png
+
+----- Detailed block reorder output for test1 -----
+
+=====================================
+Processing Function: test1
+=====================================
+
+BasicBlock: (unnamed_0xa5acd0)
+  Block Frequency: 16
+  Successor: (unnamed_0xa5b430) | Probability: 0x40000000 / 0x80000000 = 50.00% | Frequency: 8 | Score: 8589934592
+  Successor: (unnamed_0xa5b790) | Probability: 0x40000000 / 0x80000000 = 50.00% | Frequency: 8 | Score: 8589934592
+  --> Hot Successor: (unnamed_0xa5b430)
+
+BasicBlock: (unnamed_0xa5b430)
+  Block Frequency: 8
+  Successor: (unnamed_0xa5b990) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 16 | Score: 34359738368
+  --> Hot Successor: (unnamed_0xa5b990)
+  *** Reordering: (unnamed_0xa5b430) -> (unnamed_0xa5b990)
+  ;; Reordered edge reduces taken branch
+
+BasicBlock: (unnamed_0xa5b990)
+  Block Frequency: 16
+  No successor edges to analyze
+
+BasicBlock: (unnamed_0xa5b790)
+  Block Frequency: 8
+  Successor: (unnamed_0xa5b990) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 16 | Score: 34359738368
+  --> Hot Successor: (unnamed_0xa5b990)
+  *** Reordering: (unnamed_0xa5b790) -> (unnamed_0xa5b990)
+  ;; Reordered edge reduces taken branch
+
+BasicBlock: (unnamed_0xa5b990)
+  Block Frequency: 16
+  No successor edges to analyze
+
+=====================================
+Optimization Summary
+=====================================
+Total branches analyzed: 3
+Blocks reordered: 2
+Estimated taken branch reduction: 2
 Generated results/test1_out.ll
 Generated results/test1_after.png
 
@@ -23,6 +109,36 @@ Processing test2
 ===============================
 Generated results/test2.ll
 Generated results/test2_before.png
+
+----- Detailed block reorder output for test2 -----
+
+=====================================
+Processing Function: test2
+=====================================
+
+BasicBlock: (unnamed_0x18a7ce0)
+  Block Frequency: 8
+  Successor: (unnamed_0x18a7d70) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 255 | Score: 547608330240
+  --> Hot Successor: (unnamed_0x18a7d70)
+  *** Reordering: (unnamed_0x18a7ce0) -> (unnamed_0x18a7d70)
+  ;; Reordered edge reduces taken branch
+
+BasicBlock: (unnamed_0x18a7d70)
+  Block Frequency: 255
+  Successor: (unnamed_0x18a7e30) | Probability: 0x04000000 / 0x80000000 = 3.12% | Frequency: 8 | Score: 536870912
+  Successor: (unnamed_0x18a7d70) | Probability: 0x7c000000 / 0x80000000 = 96.88% | Frequency: 255 | Score: 530495569920
+  --> Hot Successor: (unnamed_0x18a7d70)
+
+BasicBlock: (unnamed_0x18a7e30)
+  Block Frequency: 8
+  No successor edges to analyze
+
+=====================================
+Optimization Summary
+=====================================
+Total branches analyzed: 2
+Blocks reordered: 1
+Estimated taken branch reduction: 1
 Generated results/test2_out.ll
 Generated results/test2_after.png
 
@@ -31,6 +147,95 @@ Processing test3
 ===============================
 Generated results/test3.ll
 Generated results/test3_before.png
+
+----- Detailed block reorder output for test3 -----
+
+=====================================
+Processing Function: test3
+=====================================
+
+BasicBlock: (unnamed_0x5f1f00)
+  Block Frequency: 31
+  Successor: (unnamed_0x5f2600) | Probability: 0x40000000 / 0x80000000 = 50.00% | Frequency: 15 | Score: 16106127360
+  Successor: (unnamed_0x5f2650) | Probability: 0x40000000 / 0x80000000 = 50.00% | Frequency: 15 | Score: 16106127360
+  --> Hot Successor: (unnamed_0x5f2600)
+
+BasicBlock: (unnamed_0x5f2600)
+  Block Frequency: 15
+  Successor: (unnamed_0x5f2810) | Probability: 0x40000000 / 0x80000000 = 50.00% | Frequency: 8 | Score: 8589934592
+  Successor: (unnamed_0x5f2860) | Probability: 0x40000000 / 0x80000000 = 50.00% | Frequency: 8 | Score: 8589934592
+  --> Hot Successor: (unnamed_0x5f2810)
+
+BasicBlock: (unnamed_0x5f2810)
+  Block Frequency: 8
+  Successor: (unnamed_0x5f29d0) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 31 | Score: 66571993088
+  --> Hot Successor: (unnamed_0x5f29d0)
+  *** Reordering: (unnamed_0x5f2810) -> (unnamed_0x5f29d0)
+  ;; Reordered edge reduces taken branch
+
+BasicBlock: (unnamed_0x5f29d0)
+  Block Frequency: 31
+  Successor: (unnamed_0x5f2ce0) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 1023 | Score: 2196875771904
+  --> Hot Successor: (unnamed_0x5f2ce0)
+  *** Reordering: (unnamed_0x5f29d0) -> (unnamed_0x5f2ce0)
+  ;; Reordered edge reduces taken branch
+
+BasicBlock: (unnamed_0x5f2ce0)
+  Block Frequency: 1023
+  Successor: (unnamed_0x5f2da0) | Probability: 0x04000000 / 0x80000000 = 3.12% | Frequency: 31 | Score: 2080374784
+  Successor: (unnamed_0x5f2ce0) | Probability: 0x7c000000 / 0x80000000 = 96.88% | Frequency: 1023 | Score: 2128223404032
+  --> Hot Successor: (unnamed_0x5f2ce0)
+
+BasicBlock: (unnamed_0x5f2860)
+  Block Frequency: 8
+  Successor: (unnamed_0x5f29d0) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 31 | Score: 66571993088
+  --> Hot Successor: (unnamed_0x5f29d0)
+  *** Reordering: (unnamed_0x5f2860) -> (unnamed_0x5f29d0)
+  ;; Reordered edge reduces taken branch
+
+BasicBlock: (unnamed_0x5f29d0)
+  Block Frequency: 31
+  Successor: (unnamed_0x5f2ce0) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 1023 | Score: 2196875771904
+  --> Hot Successor: (unnamed_0x5f2ce0)
+  *** Reordering: (unnamed_0x5f29d0) -> (unnamed_0x5f2ce0)
+  ;; Reordered edge reduces taken branch
+
+BasicBlock: (unnamed_0x5f2ce0)
+  Block Frequency: 1023
+  Successor: (unnamed_0x5f2da0) | Probability: 0x04000000 / 0x80000000 = 3.12% | Frequency: 31 | Score: 2080374784
+  Successor: (unnamed_0x5f2ce0) | Probability: 0x7c000000 / 0x80000000 = 96.88% | Frequency: 1023 | Score: 2128223404032
+  --> Hot Successor: (unnamed_0x5f2ce0)
+
+BasicBlock: (unnamed_0x5f2650)
+  Block Frequency: 15
+  Successor: (unnamed_0x5f29d0) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 31 | Score: 66571993088
+  --> Hot Successor: (unnamed_0x5f29d0)
+  *** Reordering: (unnamed_0x5f2650) -> (unnamed_0x5f29d0)
+  ;; Reordered edge reduces taken branch
+
+BasicBlock: (unnamed_0x5f29d0)
+  Block Frequency: 31
+  Successor: (unnamed_0x5f2ce0) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 1023 | Score: 2196875771904
+  --> Hot Successor: (unnamed_0x5f2ce0)
+  *** Reordering: (unnamed_0x5f29d0) -> (unnamed_0x5f2ce0)
+  ;; Reordered edge reduces taken branch
+
+BasicBlock: (unnamed_0x5f2ce0)
+  Block Frequency: 1023
+  Successor: (unnamed_0x5f2da0) | Probability: 0x04000000 / 0x80000000 = 3.12% | Frequency: 31 | Score: 2080374784
+  Successor: (unnamed_0x5f2ce0) | Probability: 0x7c000000 / 0x80000000 = 96.88% | Frequency: 1023 | Score: 2128223404032
+  --> Hot Successor: (unnamed_0x5f2ce0)
+
+BasicBlock: (unnamed_0x5f2da0)
+  Block Frequency: 31
+  No successor edges to analyze
+
+=====================================
+Optimization Summary
+=====================================
+Total branches analyzed: 11
+Blocks reordered: 6
+Estimated taken branch reduction: 6
 Generated results/test3_out.ll
 Generated results/test3_after.png
 
@@ -39,6 +244,36 @@ Processing test4
 ===============================
 Generated results/test4.ll
 Generated results/test4_before.png
+
+----- Detailed block reorder output for test4 -----
+
+=====================================
+Processing Function: unpredictable
+=====================================
+
+BasicBlock: (unnamed_0x1aefd10)
+  Block Frequency: 8
+  Successor: (unnamed_0x1aefdd0) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 255 | Score: 547608330240
+  --> Hot Successor: (unnamed_0x1aefdd0)
+  *** Reordering: (unnamed_0x1aefd10) -> (unnamed_0x1aefdd0)
+  ;; Reordered edge reduces taken branch
+
+BasicBlock: (unnamed_0x1aefdd0)
+  Block Frequency: 255
+  Successor: (unnamed_0x1aefe90) | Probability: 0x04000000 / 0x80000000 = 3.12% | Frequency: 8 | Score: 536870912
+  Successor: (unnamed_0x1aefdd0) | Probability: 0x7c000000 / 0x80000000 = 96.88% | Frequency: 255 | Score: 530495569920
+  --> Hot Successor: (unnamed_0x1aefdd0)
+
+BasicBlock: (unnamed_0x1aefe90)
+  Block Frequency: 8
+  No successor edges to analyze
+
+=====================================
+Optimization Summary
+=====================================
+Total branches analyzed: 2
+Blocks reordered: 1
+Estimated taken branch reduction: 1
 Generated results/test4_out.ll
 Generated results/test4_after.png
 

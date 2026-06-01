@@ -5,13 +5,26 @@ shopt -s nullglob
 RESULTS_DIR="results"
 SCREENSHOTS_DIR="screenshots"
 RUN_LOG="$RESULTS_DIR/run_output.txt"
+PASS_LOG="$RESULTS_DIR/pass_reorder_output.txt"
 PASS_SO="./build/libBlockReorderPass.so"
 
 mkdir -p build "$RESULTS_DIR" "$SCREENSHOTS_DIR"
 : > "$RUN_LOG"
+: > "$PASS_LOG"
 
 log() {
     echo "$@" | tee -a "$RUN_LOG"
+}
+
+append_pass_output() {
+    local test_name="$1"
+    local test_log="$2"
+
+    {
+        echo ""
+        echo "----- Detailed block reorder output for $test_name -----"
+        cat "$test_log"
+    } | tee -a "$RUN_LOG" "$PASS_LOG"
 }
 
 generate_cfg() {
@@ -59,6 +72,7 @@ do
         "$RESULTS_DIR/$file.ll" -o "$RESULTS_DIR/${file}_out.ll" \
         2> "$RESULTS_DIR/${file}_log.txt"
 
+    append_pass_output "$file" "$RESULTS_DIR/${file}_log.txt"
     log "Generated $RESULTS_DIR/${file}_out.ll"
 
     generate_cfg "$RESULTS_DIR/${file}_out.ll" "$RESULTS_DIR/${file}_after.png"

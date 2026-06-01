@@ -1,12 +1,3 @@
-===== Building LLVM Pass =====
-
-===== Running All Test Cases =====
-
-===============================
-Processing test
-===============================
-Generated results/test.ll
-Generated results/test_before.png
 
 ----- Detailed block reorder output for test -----
 
@@ -52,14 +43,6 @@ Optimization Summary
 Total branches analyzed: 0
 Blocks reordered: 0
 Estimated taken branch reduction: 0
-Generated results/test_out.ll
-Generated results/test_after.png
-
-===============================
-Processing test1
-===============================
-Generated results/test1.ll
-Generated results/test1_before.png
 
 ----- Detailed block reorder output for test1 -----
 
@@ -101,14 +84,6 @@ Optimization Summary
 Total branches analyzed: 3
 Blocks reordered: 2
 Estimated taken branch reduction: 2
-Generated results/test1_out.ll
-Generated results/test1_after.png
-
-===============================
-Processing test2
-===============================
-Generated results/test2.ll
-Generated results/test2_before.png
 
 ----- Detailed block reorder output for test2 -----
 
@@ -139,14 +114,6 @@ Optimization Summary
 Total branches analyzed: 2
 Blocks reordered: 1
 Estimated taken branch reduction: 1
-Generated results/test2_out.ll
-Generated results/test2_after.png
-
-===============================
-Processing test3
-===============================
-Generated results/test3.ll
-Generated results/test3_before.png
 
 ----- Detailed block reorder output for test3 -----
 
@@ -236,14 +203,6 @@ Optimization Summary
 Total branches analyzed: 11
 Blocks reordered: 6
 Estimated taken branch reduction: 6
-Generated results/test3_out.ll
-Generated results/test3_after.png
-
-===============================
-Processing test4
-===============================
-Generated results/test4.ll
-Generated results/test4_before.png
 
 ----- Detailed block reorder output for test4 -----
 
@@ -274,9 +233,3 @@ Optimization Summary
 Total branches analyzed: 2
 Blocks reordered: 1
 Estimated taken branch reduction: 1
-Generated results/test4_out.ll
-Generated results/test4_after.png
-
-===== ALL TESTS COMPLETED =====
-Results stored inside results/
-Submission screenshots stored inside screenshots/
