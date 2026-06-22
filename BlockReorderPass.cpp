@@ -1,3 +1,4 @@
+#include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/Analysis/BlockFrequencyInfo.h"
 #include "llvm/Analysis/BranchProbabilityInfo.h"
@@ -18,11 +19,15 @@ using namespace llvm;
 namespace {
 
 struct BlockReorderPass : public PassInfoMixin<BlockReorderPass> {
+    DenseMap<BasicBlock *, unsigned> BlockIds;
+
     void printBlockName(BasicBlock *BB) {
         if (BB->hasName())
             errs() << BB->getName();
+        else if (auto It = BlockIds.find(BB); It != BlockIds.end())
+            errs() << "bb#" << It->second;
         else
-            errs() << "(unnamed_" << BB << ")";
+            BB->printAsOperand(errs(), false);
     }
 
     void fixPHINodes(Function &F) {
@@ -62,7 +67,18 @@ struct BlockReorderPass : public PassInfoMixin<BlockReorderPass> {
         int TotalBranches = 0;
         int ReorderedBranches = 0;
 
-        for (auto &BB : F) {
+        // Reordering mutates the function's block list. Traverse a snapshot so
+        // each original block is analyzed exactly once.
+        SmallVector<BasicBlock *, 32> OriginalOrder;
+        for (auto &BB : F)
+            OriginalOrder.push_back(&BB);
+
+        BlockIds.clear();
+        for (unsigned i = 0; i < OriginalOrder.size(); i++)
+            BlockIds[OriginalOrder[i]] = i;
+
+        for (BasicBlock *BBPtr : OriginalOrder) {
+            BasicBlock &BB = *BBPtr;
             auto *Term = BB.getTerminator();
 
             if (!Term)

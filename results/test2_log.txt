@@ -3,22 +3,22 @@
 Processing Function: test2
 =====================================
 
-BasicBlock: (unnamed_0x18a7ce0)
+BasicBlock: bb#0
   Block Frequency: 8
-  Successor: (unnamed_0x18a7d70) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 255 | Score: 547608330240
-  --> Hot Successor: (unnamed_0x18a7d70)
-  *** Reordering: (unnamed_0x18a7ce0) -> (unnamed_0x18a7d70)
+  Successor: bb#2 | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 255 | Score: 547608330240
+  --> Hot Successor: bb#2
+  *** Reordering: bb#0 -> bb#2
   ;; Reordered edge reduces taken branch
 
-BasicBlock: (unnamed_0x18a7d70)
-  Block Frequency: 255
-  Successor: (unnamed_0x18a7e30) | Probability: 0x04000000 / 0x80000000 = 3.12% | Frequency: 8 | Score: 536870912
-  Successor: (unnamed_0x18a7d70) | Probability: 0x7c000000 / 0x80000000 = 96.88% | Frequency: 255 | Score: 530495569920
-  --> Hot Successor: (unnamed_0x18a7d70)
-
-BasicBlock: (unnamed_0x18a7e30)
+BasicBlock: bb#1
   Block Frequency: 8
   No successor edges to analyze
+
+BasicBlock: bb#2
+  Block Frequency: 255
+  Successor: bb#1 | Probability: 0x04000000 / 0x80000000 = 3.12% | Frequency: 8 | Score: 536870912
+  Successor: bb#2 | Probability: 0x7c000000 / 0x80000000 = 96.88% | Frequency: 255 | Score: 530495569920
+  --> Hot Successor: bb#2
 
 =====================================
 Optimization Summary

@@ -15,7 +15,8 @@ block-reorder
 The pass can be loaded with `opt` using:
 
 ```bash
-opt -load-pass-plugin ./build/libBlockReorderPass.so -passes="block-reorder" input.ll -o output.ll
+opt -load-pass-plugin ./build/libBlockReorderPass.so \
+    -passes="block-reorder" -S input.ll -o output.ll
 ```
 
 # Analyses Used
@@ -57,6 +58,15 @@ Blocks.splice(InsertPt, Blocks, BestSucc->getIterator());
 
 This uses LLVM's underlying basic block list `splice()` operation, which is compatible with the LLVM 14 packages available on Ubuntu 22.04. It changes the physical order of basic blocks in the LLVM IR function without changing the CFG edges. The goal is to make the hot successor the fall-through layout target.
 
+The implementation first stores the function's original blocks in a
+`SmallVector`. Reordering mutates LLVM's block list, so iterating the live list
+directly could cause a moved block to be visited more than once. Traversing the
+snapshot ensures that each original block is analyzed exactly once.
+
+Unnamed blocks are logged with stable per-function labels such as `bb#0` and
+`bb#1`. LLVM's printed numeric operands can change when block layout changes,
+so the stable labels make before/after decisions easier to follow.
+
 # PHI Node Reconstruction
 
 Reordering basic blocks should not change PHI semantics because PHI incoming values are tied to predecessor blocks, not textual layout. The pass still includes a defensive PHI reconstruction step:
@@ -82,3 +92,23 @@ dot -Tpng input.dot -o output.png
 ```
 
 The generated PNGs are stored in `results/`, and representative copies are placed in `screenshots/` for submission/demo use.
+
+# Verification
+
+`run_all.sh` runs the LLVM verifier after every transformation:
+
+```bash
+opt -passes=verify output.ll -disable-output
+```
+
+For tests containing `main`, the script also compiles and executes the IR before
+and after the pass. It compares their standard output and stops immediately if
+behavior changes. Each result is recorded in:
+
+```text
+results/<test>_verification.txt
+```
+
+The verification log also records `getelementptr` and named structure-type
+counts as evidence that the aggregate-oriented tests contain real
+data-structure access in LLVM IR.

@@ -1,5 +1,7 @@
 build/
+build-docker/
 *.ll
 *.dot
 *.so
 !results/*.ll
+outputs/

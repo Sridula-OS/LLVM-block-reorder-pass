@@ -4,6 +4,23 @@ This project implements a heuristic-based LLVM basic block layout optimization. 
 
 The optimization is intentionally local and conservative. It does not attempt whole-program layout or full trace construction. Instead, it focuses on each function independently and uses the control-flow information already available inside LLVM.
 
+# Data-Structure Workloads
+
+Structures, arrays, linked lists, trees, stacks, and queues eventually become
+LLVM instructions and basic blocks. Field and element addresses are commonly
+computed with `getelementptr`; conditions on loaded values create CFG edges.
+
+The pass remains a control-flow layout optimization:
+
+- It does not reorder structure fields.
+- It does not convert an array of structures into a structure of arrays.
+- It does not replace LLVM's SROA or other aggregate optimizations.
+- It reorders the branch blocks produced while processing those data
+  structures.
+
+The expanded test suite therefore evaluates the same BPI/BFI heuristic on
+aggregate access, pointer chasing, recursion, and multiple data-structure loops.
+
 # Why BPI + BFI
 
 The pass combines two LLVM analyses:

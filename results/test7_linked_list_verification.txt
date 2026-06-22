@@ -1,0 +1,5 @@
+IR verifier: PASS
+getelementptr instructions: 11
+named structure types: 1
+Behavior comparison: PASS
+Program output: 24

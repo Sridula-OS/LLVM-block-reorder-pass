@@ -7,6 +7,11 @@
 | test2 | Loops with conditional updates |
 | test3 | Cold paths and nested conditionals |
 | test4 | Unpredictable branches |
+| test5_struct | Array of structures and field-based decisions |
+| test6_array | Array traversal and nested classification |
+| test7_linked_list | Linked-list pointer chasing |
+| test8_tree | Recursive binary-tree traversal |
+| test9_stack_queue | Stack and queue processing |
 
 # Metrics
 
@@ -17,10 +22,46 @@ The repository contains generated logs in `results/`. The latest `./run_all.sh` 
 | test  | 2 | 1 | 1 |
 | test1 | 3 | 2 | 2 |
 | test2 | 2 | 1 | 1 |
-| test3 | 11 | 6 | 6 |
+| test3 | 7 | 4 | 4 |
 | test4 | 2 | 1 | 1 |
+| test5_struct | 9 | 7 | 7 |
+| test6_array | 10 | 9 | 9 |
+| test7_linked_list | 7 | 4 | 4 |
+| test8_tree | 2 | 0 | 0 |
+| test9_stack_queue | 13 | 9 | 9 |
 
-These values can be refreshed by running `./run_all.sh` in a Linux/WSL environment with LLVM, Clang, CMake, and Graphviz installed. The script writes per-test logs to `results/*_log.txt`.
+These values were produced with LLVM/Clang 14 in the repository's Ubuntu 22.04
+Docker environment. They can be refreshed using `./run_all.sh` on Linux/WSL or
+`.\run_docker.ps1` on a Docker-enabled Windows machine. The script writes
+per-test logs to `results/*_log.txt`.
+
+# Correctness Verification
+
+All transformed modules passed LLVM's IR verifier. All tests containing a
+`main` function produced identical output before and after the pass.
+
+| Test | Program output |
+| ---- | -------------- |
+| test | -35 |
+| test5_struct | 109 |
+| test6_array | 121 |
+| test7_linked_list | 24 |
+| test8_tree | 19 |
+| test9_stack_queue | 97 |
+
+The older helper-only tests (`test1` through `test4`) have no `main`, so they
+receive IR verification but not executable output comparison.
+
+# Data-Structure Interpretation
+
+The new tests show that this pass applies to code using aggregate data
+structures because their operations generate branches and basic blocks. The
+optimization still concerns CFG layout. It does not modify the memory layout of
+the structures themselves.
+
+`test8_tree` is a useful no-op case: the recursive tree function is valid and
+analyzed, but LLVM's existing block order already matches the selected hot
+successors, so no block move is required.
 
 # Baseline Comparison
 
@@ -53,3 +94,7 @@ Important artifacts:
 - `screenshots/after-cfg-test3.png`
 - `screenshots/failure-test4-before.png`
 - `screenshots/failure-test4-after.png`
+- `screenshots/structure-before.png`
+- `screenshots/structure-after.png`
+- `screenshots/linked-list-before.png`
+- `screenshots/linked-list-after.png`

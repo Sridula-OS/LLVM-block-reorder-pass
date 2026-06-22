@@ -6,6 +6,12 @@ This project implements an LLVM new pass manager `FunctionPass` that reorders ba
 
 The pass uses LLVM's `BranchProbabilityInfo` and `BlockFrequencyInfo` analyses to identify the hottest successor of each basic block. If that successor is not already physically adjacent to the current block, the pass moves it using LLVM's basic block list `splice()` operation.
 
+The evaluation includes both scalar control-flow programs and programs built
+around structures and common data structures. The pass does not reorder fields
+inside a C structure. It optimizes the basic blocks produced by operations such
+as structure-field checks, array traversal, pointer chasing, recursion, and
+stack/queue processing.
+
 ## Objective
 
 - Use `BranchProbabilityInfo` to estimate successor edge likelihood.
@@ -22,7 +28,7 @@ The pass uses LLVM's `BranchProbabilityInfo` and `BlockFrequencyInfo` analyses t
 - CMake
 - C++
 - Graphviz
-- Linux or WSL
+- Linux, WSL, or Docker Desktop
 
 ## Project Structure
 
@@ -35,17 +41,25 @@ LLVM-block-reorder-pass/
 |-- IMPLEMENTATION.md
 |-- EVALUATION.md
 |-- run_all.sh
+|-- run_docker.ps1
+|-- Dockerfile
 |-- test.c
 |-- test1.c
 |-- test2.c
 |-- test3.c
 |-- test4.c
+|-- test5_struct.c
+|-- test6_array.c
+|-- test7_linked_list.c
+|-- test8_tree.c
+|-- test9_stack_queue.c
 |-- results/
 |   |-- *.ll
 |   |-- *_out.ll
 |   |-- *_before.png
 |   |-- *_after.png
 |   |-- *_log.txt
+|   |-- *_verification.txt
 |-- screenshots/
 |   |-- before-cfg-test3.png
 |   |-- after-cfg-test3.png
@@ -86,7 +100,7 @@ Run the pass:
 ```bash
 opt -load-pass-plugin ./build/libBlockReorderPass.so \
     -passes="block-reorder" \
-    test.ll -o test_out.ll
+    -S test.ll -o test_out.ll
 ```
 
 ## Automatic Evaluation
@@ -100,12 +114,34 @@ Run:
 The script:
 
 - Builds the LLVM pass.
-- Compiles all five test cases to LLVM IR.
+- Compiles all ten test cases to LLVM IR.
 - Generates before CFG PNGs.
 - Runs the block reorder pass.
+- Runs LLVM's IR verifier after the transformation.
+- Compiles and executes before/after IR when a test has `main`.
+- Fails if observable program output changes.
 - Generates after CFG PNGs.
 - Writes per-test logs.
 - Copies representative demo artifacts into `screenshots/`.
+
+The transformed files are emitted as textual LLVM IR using `opt -S`, so the
+`*_out.ll` extension now matches the file contents.
+
+## Docker Evaluation
+
+If LLVM 14 is not installed locally, run the complete suite through Docker:
+
+```powershell
+.\run_docker.ps1
+```
+
+This builds a pinned Ubuntu 22.04 image containing LLVM/Clang 14, CMake,
+Graphviz, and the required build tools. Container builds use `build-docker/`
+to avoid conflicting with a host-side CMake cache.
+
+The runner deletes each generated test artifact before recreating it. This
+avoids WSL DrvFs overwrite errors when previous outputs were produced through
+Docker in the same Windows-mounted directory.
 
 ## Implementation Summary
 
@@ -133,6 +169,11 @@ score = branch_probability x block_frequency
 | test2 | Loop-heavy control flow |
 | test3 | Nested branches and cold paths |
 | test4 | Unpredictable branch behavior/failure case |
+| test5_struct | Array of `Student` structures and field-based branches |
+| test6_array | Array traversal with nested value classification |
+| test7_linked_list | Pointer-chasing `while` loop over linked nodes |
+| test8_tree | Recursive binary-tree traversal |
+| test9_stack_queue | Stack and queue structures with multiple processing loops |
 
 ## Documentation
 
@@ -145,3 +186,7 @@ Additional required project documentation is provided in:
 ## Known Limitations
 
 This is a static heuristic optimization. It can be less effective when branches are unpredictable, when static branch estimates do not match real runtime behavior, or when local reordering hurts instruction-cache locality.
+
+A valid test can also produce zero reorders when Clang has already placed the
+estimated hot successors next to their predecessors. `test8_tree.c` currently
+demonstrates this no-op case.

@@ -3,85 +3,59 @@
 Processing Function: test3
 =====================================
 
-BasicBlock: (unnamed_0x5f1f00)
+BasicBlock: bb#0
   Block Frequency: 31
-  Successor: (unnamed_0x5f2600) | Probability: 0x40000000 / 0x80000000 = 50.00% | Frequency: 15 | Score: 16106127360
-  Successor: (unnamed_0x5f2650) | Probability: 0x40000000 / 0x80000000 = 50.00% | Frequency: 15 | Score: 16106127360
-  --> Hot Successor: (unnamed_0x5f2600)
+  Successor: bb#1 | Probability: 0x40000000 / 0x80000000 = 50.00% | Frequency: 15 | Score: 16106127360
+  Successor: bb#4 | Probability: 0x40000000 / 0x80000000 = 50.00% | Frequency: 15 | Score: 16106127360
+  --> Hot Successor: bb#1
 
-BasicBlock: (unnamed_0x5f2600)
+BasicBlock: bb#1
   Block Frequency: 15
-  Successor: (unnamed_0x5f2810) | Probability: 0x40000000 / 0x80000000 = 50.00% | Frequency: 8 | Score: 8589934592
-  Successor: (unnamed_0x5f2860) | Probability: 0x40000000 / 0x80000000 = 50.00% | Frequency: 8 | Score: 8589934592
-  --> Hot Successor: (unnamed_0x5f2810)
+  Successor: bb#2 | Probability: 0x40000000 / 0x80000000 = 50.00% | Frequency: 8 | Score: 8589934592
+  Successor: bb#3 | Probability: 0x40000000 / 0x80000000 = 50.00% | Frequency: 8 | Score: 8589934592
+  --> Hot Successor: bb#2
 
-BasicBlock: (unnamed_0x5f2810)
+BasicBlock: bb#2
   Block Frequency: 8
-  Successor: (unnamed_0x5f29d0) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 31 | Score: 66571993088
-  --> Hot Successor: (unnamed_0x5f29d0)
-  *** Reordering: (unnamed_0x5f2810) -> (unnamed_0x5f29d0)
+  Successor: bb#5 | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 31 | Score: 66571993088
+  --> Hot Successor: bb#5
+  *** Reordering: bb#2 -> bb#5
   ;; Reordered edge reduces taken branch
 
-BasicBlock: (unnamed_0x5f29d0)
-  Block Frequency: 31
-  Successor: (unnamed_0x5f2ce0) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 1023 | Score: 2196875771904
-  --> Hot Successor: (unnamed_0x5f2ce0)
-  *** Reordering: (unnamed_0x5f29d0) -> (unnamed_0x5f2ce0)
-  ;; Reordered edge reduces taken branch
-
-BasicBlock: (unnamed_0x5f2ce0)
-  Block Frequency: 1023
-  Successor: (unnamed_0x5f2da0) | Probability: 0x04000000 / 0x80000000 = 3.12% | Frequency: 31 | Score: 2080374784
-  Successor: (unnamed_0x5f2ce0) | Probability: 0x7c000000 / 0x80000000 = 96.88% | Frequency: 1023 | Score: 2128223404032
-  --> Hot Successor: (unnamed_0x5f2ce0)
-
-BasicBlock: (unnamed_0x5f2860)
+BasicBlock: bb#3
   Block Frequency: 8
-  Successor: (unnamed_0x5f29d0) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 31 | Score: 66571993088
-  --> Hot Successor: (unnamed_0x5f29d0)
-  *** Reordering: (unnamed_0x5f2860) -> (unnamed_0x5f29d0)
+  Successor: bb#5 | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 31 | Score: 66571993088
+  --> Hot Successor: bb#5
+  *** Reordering: bb#3 -> bb#5
   ;; Reordered edge reduces taken branch
 
-BasicBlock: (unnamed_0x5f29d0)
-  Block Frequency: 31
-  Successor: (unnamed_0x5f2ce0) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 1023 | Score: 2196875771904
-  --> Hot Successor: (unnamed_0x5f2ce0)
-  *** Reordering: (unnamed_0x5f29d0) -> (unnamed_0x5f2ce0)
-  ;; Reordered edge reduces taken branch
-
-BasicBlock: (unnamed_0x5f2ce0)
-  Block Frequency: 1023
-  Successor: (unnamed_0x5f2da0) | Probability: 0x04000000 / 0x80000000 = 3.12% | Frequency: 31 | Score: 2080374784
-  Successor: (unnamed_0x5f2ce0) | Probability: 0x7c000000 / 0x80000000 = 96.88% | Frequency: 1023 | Score: 2128223404032
-  --> Hot Successor: (unnamed_0x5f2ce0)
-
-BasicBlock: (unnamed_0x5f2650)
+BasicBlock: bb#4
   Block Frequency: 15
-  Successor: (unnamed_0x5f29d0) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 31 | Score: 66571993088
-  --> Hot Successor: (unnamed_0x5f29d0)
-  *** Reordering: (unnamed_0x5f2650) -> (unnamed_0x5f29d0)
+  Successor: bb#5 | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 31 | Score: 66571993088
+  --> Hot Successor: bb#5
+  *** Reordering: bb#4 -> bb#5
   ;; Reordered edge reduces taken branch
 
-BasicBlock: (unnamed_0x5f29d0)
+BasicBlock: bb#5
   Block Frequency: 31
-  Successor: (unnamed_0x5f2ce0) | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 1023 | Score: 2196875771904
-  --> Hot Successor: (unnamed_0x5f2ce0)
-  *** Reordering: (unnamed_0x5f29d0) -> (unnamed_0x5f2ce0)
+  Successor: bb#7 | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 1023 | Score: 2196875771904
+  --> Hot Successor: bb#7
+  *** Reordering: bb#5 -> bb#7
   ;; Reordered edge reduces taken branch
 
-BasicBlock: (unnamed_0x5f2ce0)
-  Block Frequency: 1023
-  Successor: (unnamed_0x5f2da0) | Probability: 0x04000000 / 0x80000000 = 3.12% | Frequency: 31 | Score: 2080374784
-  Successor: (unnamed_0x5f2ce0) | Probability: 0x7c000000 / 0x80000000 = 96.88% | Frequency: 1023 | Score: 2128223404032
-  --> Hot Successor: (unnamed_0x5f2ce0)
-
-BasicBlock: (unnamed_0x5f2da0)
+BasicBlock: bb#6
   Block Frequency: 31
   No successor edges to analyze
+
+BasicBlock: bb#7
+  Block Frequency: 1023
+  Successor: bb#6 | Probability: 0x04000000 / 0x80000000 = 3.12% | Frequency: 31 | Score: 2080374784
+  Successor: bb#7 | Probability: 0x7c000000 / 0x80000000 = 96.88% | Frequency: 1023 | Score: 2128223404032
+  --> Hot Successor: bb#7
 
 =====================================
 Optimization Summary
 =====================================
-Total branches analyzed: 11
-Blocks reordered: 6
-Estimated taken branch reduction: 6
+Total branches analyzed: 7
+Blocks reordered: 4
+Estimated taken branch reduction: 4

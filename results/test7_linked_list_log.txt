@@ -1,0 +1,77 @@
+
+=====================================
+Processing Function: process_list
+=====================================
+
+BasicBlock: bb#0
+  Block Frequency: 8
+  Successor: bb#7 | Probability: 0x30000000 / 0x80000000 = 37.50% | Frequency: 8 | Score: 6442450944
+  Successor: bb#1 | Probability: 0x50000000 / 0x80000000 = 62.50% | Frequency: 159 | Score: 213406187520
+  --> Hot Successor: bb#1
+
+BasicBlock: bb#1
+  Block Frequency: 159
+  Successor: bb#2 | Probability: 0x50000000 / 0x80000000 = 62.50% | Frequency: 99 | Score: 132875550720
+  Successor: bb#5 | Probability: 0x30000000 / 0x80000000 = 37.50% | Frequency: 59 | Score: 47513075712
+  --> Hot Successor: bb#2
+
+BasicBlock: bb#2
+  Block Frequency: 99
+  Successor: bb#3 | Probability: 0x40000000 / 0x80000000 = 50.00% | Frequency: 49 | Score: 52613349376
+  Successor: bb#4 | Probability: 0x40000000 / 0x80000000 = 50.00% | Frequency: 49 | Score: 52613349376
+  --> Hot Successor: bb#3
+
+BasicBlock: bb#3
+  Block Frequency: 49
+  Successor: bb#6 | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 159 | Score: 341449900032
+  --> Hot Successor: bb#6
+  *** Reordering: bb#3 -> bb#6
+  ;; Reordered edge reduces taken branch
+
+BasicBlock: bb#4
+  Block Frequency: 49
+  Successor: bb#6 | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 159 | Score: 341449900032
+  --> Hot Successor: bb#6
+  *** Reordering: bb#4 -> bb#6
+  ;; Reordered edge reduces taken branch
+
+BasicBlock: bb#5
+  Block Frequency: 59
+  Successor: bb#6 | Probability: 0x80000000 / 0x80000000 = 100.00% | Frequency: 159 | Score: 341449900032
+  --> Hot Successor: bb#6
+  *** Reordering: bb#5 -> bb#6
+  ;; Reordered edge reduces taken branch
+
+BasicBlock: bb#6
+  Block Frequency: 159
+  Successor: bb#7 | Probability: 0x04000000 / 0x80000000 = 3.12% | Frequency: 8 | Score: 536870912
+  Successor: bb#1 | Probability: 0x7c000000 / 0x80000000 = 96.88% | Frequency: 159 | Score: 330779590656
+  --> Hot Successor: bb#1
+  *** Reordering: bb#6 -> bb#1
+  ;; Reordered edge reduces taken branch
+
+BasicBlock: bb#7
+  Block Frequency: 8
+  No successor edges to analyze
+
+=====================================
+Optimization Summary
+=====================================
+Total branches analyzed: 7
+Blocks reordered: 4
+Estimated taken branch reduction: 4
+
+=====================================
+Processing Function: main
+=====================================
+
+BasicBlock: bb#0
+  Block Frequency: 8
+  No successor edges to analyze
+
+=====================================
+Optimization Summary
+=====================================
+Total branches analyzed: 0
+Blocks reordered: 0
+Estimated taken branch reduction: 0
